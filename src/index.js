@@ -15,8 +15,18 @@ const cors = require('cors')
 
 app.use(cors({
     origin: 'https://coder-engine.vercel.app',
-    credentials: true 
+    credentials: true ,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }))
+
+app.options('*', cors({
+    origin: 'https://coder-engine.vercel.app',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 
 app.use(express.json());
 app.use(cookieParser());
