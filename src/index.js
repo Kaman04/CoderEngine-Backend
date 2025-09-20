@@ -13,18 +13,35 @@ const cors = require('cors')
 
 // console.log("Hello")
 
-app.use(cors({
-    origin: 'https://coder-engine.vercel.app',
-    credentials: true ,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}))
+// app.use(cors({
+//     origin: 'https://coder-engine.vercel.app',
+//     credentials: true ,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+// }))
 
-app.options('*', cors({
-    origin: 'https://coder-engine.vercel.app',
+// app.options('*', cors({
+//     origin: 'https://coder-engine.vercel.app',
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+// }));
+const allowedOrigins = [
+    'http://localhost:5173', // frontend dev
+    'https://coder-engine.vercel.app' // production frontend
+];
+
+app.use(cors({
+    origin: function(origin, callback){
+        if(!origin) return callback(null, true); // allow non-browser requests
+        if(allowedOrigins.indexOf(origin) === -1){
+            return callback(new Error('Not allowed by CORS'), false);
+        }
+        return callback(null, true);
+    },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+    allowedHeaders: ['Content-Type','Authorization']
 }));
 
 
