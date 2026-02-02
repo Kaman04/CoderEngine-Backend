@@ -11,9 +11,9 @@ problemRouter.post("/create",adminMiddleware ,createProblem);
 problemRouter.put("/update/:id",adminMiddleware, updateProblem);
 problemRouter.delete("/delete/:id",adminMiddleware, deleteProblem);
 
-
-problemRouter.get("/problemById/:id",userMiddleware,getProblemById);
-problemRouter.get("/getAllProblem",userMiddleware, getAllProblem);
+// Now I removed userMiddleware that any one can see all the available problems
+problemRouter.get("/problemById/:id", getProblemById);
+problemRouter.get("/getAllProblem", getAllProblem);
 problemRouter.get("/problemSolvedByUser",userMiddleware, solvedAllProblembyUser);
 problemRouter.get("/submittedProblem/:pid",userMiddleware,submittedProblem);
 
